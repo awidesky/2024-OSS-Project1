@@ -2,7 +2,7 @@
 
 if [ $# -ne 3 ]; then
     echo "usage: $0 file1 file2 file3"
-    # return will not work when executed as "./2024-OSS-Project1.sh"
+    # return will not work when executed as "./proj1_12211723_HongSungMin.sh"
     exit 1
 fi
 
@@ -46,12 +46,12 @@ do
     "1")
         read -p "Do you want to get the Heung-Min Son's data? (y/n) : " yes
         if [ "$yes" = "y" ]; then
-            awk -F, '$1=="Heung-Min Son"{printf("Team:%s, Apperance:%d, Goal:%d, Assist:%d\n", $4, $6, $7, $8)}' < "$f_players"
+            awk -F, '$1=="Heung-Min Son" {printf("Team:%s, Apperance:%d, Goal:%d, Assist:%d\n", $4, $6, $7, $8)}' < "$f_players"
         fi
         ;;
     "2")
         read -p "What do you want to get the team data of league_position[1~20] : " pos
-        awk -v p=$pos -F, '$6==p{print $6, $1, $2/($2+$3+$4)}' < "$f_teams"
+        awk -v p=$pos -F, '$6==p {print $6, $1, $2/($2+$3+$4)}' < "$f_teams"
         ;;
     "3")
         read -p "Do you want to know Top-3 attendance data and average attendance? (y/n) : " yes
@@ -68,9 +68,7 @@ do
             for team in $(sort -n -k 6 -t ',' < "$f_teams" | awk -F, '$1!="common_name" {printf("%s/%s,", $6, $1)}'); do
                 echo ""
                 echo "$team" | tr '/' ' '
-                awk -v t=$(echo "$team" | cut -d '/' -f2) -F, '$4==t {printf("%s,%s\n", $1, $7)}' < "$f_players" | LC_CTYPE=C sort -r -n -k 2 -t ',' | head -n 1 | tr ',' ' '
-                
-                #awk -v t=$(echo "$team" | cut -d '/' -f2) -F, '$4==t {printf("%s,%s\n", $1, $7)}' < "$f_players"
+                awk -v t=$(echo "$team" | cut -d '/' -f2) -F, '$4==t {printf("%s/%s\n", $1, $7)}' < "$f_players" | LC_CTYPE=C sort -r -n -k 2 -t '/' | head -n 1 | tr '/' ' '
             done
             IFS=$OLDIFS
         fi
@@ -96,7 +94,9 @@ do
         ;;
     "7")
         echo "Bye!"
-        exit 0;;
+        exit 0
+        ;;
     esac
+    echo ""
 done
 
