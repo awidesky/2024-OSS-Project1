@@ -54,7 +54,7 @@ do
         awk -v p=$pos -F, '$6==p {print $6, $1, $2/($2+$3+$4)}' < "$f_teams"
         ;;
     "3")
-        read -p "Do you want to know Top-3 attendance data and average attendance? (y/n) : " yes
+        read -p "Do you want to know Top-3 attendance data? (y/n) : " yes
         if [ "$yes" = "y" ]; then
             echo "***Top-3 Attendance Match***"
             sort -r -n -k 2 -t ',' < "$f_matches" | head -n 3 | awk -F, '{printf("\n%s vs %s (%s)\n%d %s\n", $3, $4, $1, $2, $7)}'
