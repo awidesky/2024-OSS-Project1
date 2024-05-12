@@ -101,7 +101,6 @@ do
         ;;
     "7")
         echo "Bye!"
-        exit 0
         ;;
     esac
     echo ""
