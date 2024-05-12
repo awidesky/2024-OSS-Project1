@@ -23,6 +23,13 @@ for f in $*; do
     exit 1
 done
 
+for f in "$f_teams" "$f_players" "$f_matches"; do
+    if ! [ -f "$f" ]; then
+        echo "$f does not exists!"
+        exit 1
+    fi
+done
+
 echo "************OSS1 - Project1************"
 echo "*        StudentID : 12211723         *"
 echo "*        Name : SungMin Hong          *"
